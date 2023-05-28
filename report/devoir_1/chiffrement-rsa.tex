@@ -149,7 +149,11 @@ import math
 def is_prime(n):
     if n < 2:
         return False
-    for i in range(2, int(math.sqrt(n)) + 1, 2):
+    if n == 2:
+        return True
+    if n % 2 == 0:
+        return False
+    for i in range(3, int(math.sqrt(n)) + 1, 2):
         if n % i == 0:
             return False
     return True
@@ -160,14 +164,6 @@ def generate_prime():
     while not is_prime(p):
         p = random.randint(100, 1000)
     return p
-
-p = generate_prime()
-q = generate_prime()
-
-# On vérifie que p et q sont distincts
-while p == q:
-    q = generate_prime()
-
     \end{minted}
 \end{tcolorbox}
 
@@ -250,12 +246,12 @@ Enfin, on utilise notre programme en commençant par générer $p$ et $q$ premie
 ]    
     \begin{minted}{python}
 # Test de chiffrement et déchiffrement avec des nombres aléatoires
-p = 5
-q = 17
+p = generate_prime()
+q = generate_prime()
 
+# On s'assure que p et q sont distincts
 while p == q:
     q = generate_prime()
-
 
 message = 10
 public_key, private_key = generate_keys(p, q)
